@@ -2,6 +2,7 @@ package sean.k.uts2120;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
@@ -13,6 +14,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 	
 	GameThread thread;
 	Game game;
+	SharedPreferences data;
 
 	/*
 	 * this is the Android view that holds a canvas upon which the entire game is drawn
@@ -77,10 +79,14 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 		game = theGame;
 	}
 	
+	public void setData(SharedPreferences theData){
+		data = theData;
+	}
+	
 	
 	public void pause(){ //for activity onpause
 		try {
-			
+			thread.save();
 			thread.setRunning(false);
 			thread.join();
 			
@@ -88,7 +94,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 	}
 	
 	public void resume(){ //for activity onresume
-		thread = new GameThread(game, getHolder(), this);
+		thread = new GameThread(game, data, getHolder(), this);
 		thread.setRunning(true);
 		thread.start();
 	}

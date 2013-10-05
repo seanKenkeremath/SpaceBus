@@ -65,11 +65,12 @@ public class GameThread extends Thread implements SensorEventListener{
 	 */
 	
 	
-	public GameThread(Game theGame, SurfaceHolder surfaceHolder, GameCanvas panel){
+	public GameThread(Game theGame, SharedPreferences theData, SurfaceHolder surfaceHolder, GameCanvas thePanel){
 		
 		game = theGame;
+		data = theData;
 		_surfaceHolder = surfaceHolder;
-		panel = panel;
+		panel = thePanel;
 		//pausedScreen = new PausedScreen(this);
 		gameplayScreen = new GameplayScreen(this);
 		currentScreen = gameplayScreen; // so there is no null pointer
@@ -86,6 +87,7 @@ public class GameThread extends Thread implements SensorEventListener{
 	public void exitLevel(Level theLevel){
 		game.levelExit();
 		game.unrenderLevel(theLevel);
+		save();
 	}
 	
 	public void restartLevel(){
@@ -125,6 +127,7 @@ public class GameThread extends Thread implements SensorEventListener{
 		currentScreen.enter(panel.getContext());
 		paused = true;
 		touchEventBuffer = null;
+		save();
 	}
 	public void unpause(){
 		currentScreen.exit();
@@ -444,7 +447,7 @@ public class GameThread extends Thread implements SensorEventListener{
 		data = theData;
 	}
 	
-	private void save(){
+	public void save(){
 		SharedPreferences.Editor edit = data.edit();
 		//Date now = new Date();
 		edit.clear();
@@ -453,6 +456,7 @@ public class GameThread extends Thread implements SensorEventListener{
 	}
 	
 	public void onPause(){
+		save();
 		sensorManager.unregisterListener(this);
 	}
 	

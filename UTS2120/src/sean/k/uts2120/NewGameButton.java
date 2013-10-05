@@ -30,7 +30,7 @@ public class NewGameButton extends GameButton{
 	void click() {
 		thread.getGame().gameReset();
 		thread.getScreen().exit(); // exit an additional time so bitmap of main menu does not overlap with level bitmaps
-		thread.startLevel(new LevelDebug(thread.getGame()));
+		thread.startLevel(new LevelOne(thread.getGame()));
 		thread.unpause();
 
 	}

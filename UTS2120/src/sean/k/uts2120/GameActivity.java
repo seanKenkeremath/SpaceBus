@@ -28,10 +28,12 @@ public class GameActivity extends Activity{
 	public void initialize(){
 		
 		game = new Game();
-		panel.setGame(game);
 		SharedPreferences data = getPreferences(MODE_PRIVATE);
-		data.getInt(HIGH_SCORE_KEY, 0);
-		thread.setData(data);
+		game.setHighScore(data.getInt(HIGH_SCORE_KEY, 0));
+
+		panel.setGame(game);
+		panel.setData(data);
+	
 		
 
 		game.initialize();

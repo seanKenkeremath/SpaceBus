@@ -641,6 +641,7 @@ public class Game{
 		if (amount>0){
 			addAnimation(new IncScoreAnimation(this, scorePaint));
 		}
+		updateHighScore();
 	}
 	
 	public void setHighScore(int theHighScore){
@@ -857,6 +858,7 @@ public class Game{
 		clearEntities();
 		player.clearPassengerCount();
 		player.reset(false);
+		
 	}
 	
 	
@@ -884,11 +886,20 @@ public class Game{
 	/*
 	 * the method called when you quit the game
 	 */
-	public void quit(){/*
+	public void quit(){
+		/*
 		currentLevel = null;
 		player = null;
 		*/
 	}
+	
+	
+	private void updateHighScore(){
+		if (score>highScore){
+			highScore = score;
+		}
+	}
+	
 	
 	/*
 	 * takes a speed percent which is based on screenHeight

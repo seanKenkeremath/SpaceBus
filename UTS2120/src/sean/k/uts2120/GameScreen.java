@@ -93,11 +93,16 @@ abstract class GameScreen {
 	public void draw(Canvas canvas) {
 		drawBackground(canvas);
 		if (buttonWaitTime==0){
+			drawPanel(canvas);
 			for (GameButton button : buttons) {
 				button.draw(canvas);
 			}
 		}
 
+	}
+	
+	public void drawPanel(Canvas canvas){
+		//only implement on menu screens (change to abstract)
 	}
 
 	public void touch(MotionEvent event) {

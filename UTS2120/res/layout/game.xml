@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
      >
 
-    <sean.k.uts2120.DrawingPanel
-        android:id="@+id/drawing_panel"
+    <sean.k.uts2120.GameCanvas
+        android:id="@+id/game_canvas"
         android:layout_width = "match_parent"
         android:layout_height = "match_parent"
         />

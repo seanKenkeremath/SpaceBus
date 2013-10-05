@@ -15,7 +15,7 @@ import android.view.View.OnTouchListener;
 public class GameActivity extends Activity{
 
 	GameThread thread;
-	DrawingPanel panel;
+	GameCanvas panel;
 	Game game;
 	final static String HIGH_SCORE_KEY = "HighScore";
 
@@ -42,7 +42,7 @@ public class GameActivity extends Activity{
 
 
 	
-	public DrawingPanel getPanel(){
+	public GameCanvas getPanel(){
 		return panel;
 	}
 	
@@ -71,7 +71,7 @@ public class GameActivity extends Activity{
 		Game.velocityFast = Game.VELOCITY_FAST_PERCENT*Game.screenHeight;
 		Game.tiltSensitivity = Game.TILT_SENSITIVITY_PERCENT_WIDTH_PER_G*Game.screenWidth;
 		Game.gameSpeedNormal = Game.GAME_SPEED_NORMAL_PERCENT*Game.screenHeight;
-		panel = (DrawingPanel) findViewById(R.id.drawing_panel);
+		panel = (GameCanvas) findViewById(R.id.game_canvas);
 		initialize();
 		
 	}

@@ -1,6 +1,7 @@
 package sean.k.uts2120;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,12 +12,13 @@ import android.view.View.OnTouchListener;
 
 
 
-
 public class GameActivity extends Activity{
 
-	GameThread _thread;
+	GameThread thread;
 	DrawingPanel panel;
 	Game game;
+	final static String HIGH_SCORE_KEY = "HighScore";
+
 	
 	
 
@@ -27,45 +29,10 @@ public class GameActivity extends Activity{
 		
 		game = new Game();
 		panel.setGame(game);
+		SharedPreferences data = getPreferences(MODE_PRIVATE);
+		data.getInt(HIGH_SCORE_KEY, 0);
+		thread.setData(data);
 		
-		
-		//initialize bitmaps
-		/*
-		Bitmap busStopImage = createImage(R.drawable.bus_stop, (int)(Game.screenHeight*BusStop.WIDTH_PERCENT), (int)(Game.screenHeight*BusStop.HEIGHT_PERCENT));
-		game.cacheImage(BusStop.NAME,busStopImage);
-		
-
-		
-
-		
-		Bitmap earthImage = createImage(R.drawable.earth, (int)Game.screenHeight/2, (int)Game.screenHeight/2);
-		game.cacheImage(LevelOne.NAME_EARTH, earthImage);
-		
-		Bitmap levelOneImage = createImage(R.drawable.spacebackground2, (int)Game.screenWidth, (int)Game.screenHeight);
-		game.cacheImage(LevelOne.NAME, levelOneImage);
-		
-		
-
-		
-		Bitmap astSImage = createImage(R.drawable.asteroid, (int)(MediumAsteroid.WIDTH_PERCENT*Game.screenHeight), (int)(MediumAsteroid.HEIGHT_PERCENT*Game.screenHeight));
-		game.cacheImage(Asteroid.NAME, astSImage);	
-
-		Bitmap astIceSImage = createImage(R.drawable.ice_chunk_small, (int)(SmallIceAsteroid.WIDTH_PERCENT*Game.screenHeight), (int)(SmallIceAsteroid.HEIGHT_PERCENT*Game.screenHeight));
-		game.cacheImage(SmallIceAsteroid.NAME, astIceSImage);
-		
-		
-		Bitmap fuelImage = createImage(R.drawable.antimatter, (int)(Fuel.WIDTH_PERCENT*Game.screenHeight), (int)(Fuel.HEIGHT_PERCENT*Game.screenHeight));
-		game.cacheImage(Fuel.NAME, fuelImage);
-		
-		Bitmap enemyImage = createImage(R.drawable.ic_launcher, (int)(BasicEnemy.HEIGHT_PERCENT*Game.screenHeight), (int)(BasicEnemy.HEIGHT_PERCENT*Game.screenHeight));
-		game.cacheImage(BasicEnemy.NAME, enemyImage);
-		
-		Bitmap aoeEnemyImage = createImage(R.drawable.megilloutrage, (int)(AOEEnemy.HEIGHT_PERCENT*Game.screenHeight), (int)(AOEEnemy.HEIGHT_PERCENT*Game.screenHeight));
-		game.cacheImage(AOEEnemy.NAME, aoeEnemyImage);
-		
-		Bitmap aoeEnemyImage2 = createImage(R.drawable.megillhappy, (int)(AOEEnemy.WIDTH_PERCENT*Game.screenHeight), (int)(AOEEnemy.HEIGHT_PERCENT*Game.screenHeight));
-		game.cacheImage(AOEEnemy.NAME2, aoeEnemyImage2);
-		*/
 
 		game.initialize();
 	}
@@ -114,14 +81,14 @@ public class GameActivity extends Activity{
 		super.onResume();
 		
 		panel.resume(); //creates new thread
-		_thread = panel.getGameThread();
-		_thread.setAccelerometer((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+		thread = panel.getGameThread();
+		thread.setAccelerometer((SensorManager) getSystemService(Context.SENSOR_SERVICE));
 		panel.setOnTouchListener(new OnTouchListener(){
 
 			@Override
 			public boolean onTouch(View v, MotionEvent mEvent) {
 				if (mEvent.getAction() != MotionEvent.ACTION_UP){
-					_thread.setTouchInput(mEvent);
+					thread.setTouchInput(mEvent);
 					return true;
 				}
 				return true;
@@ -130,8 +97,8 @@ public class GameActivity extends Activity{
 		});
 
 		
-		if (_thread!=null){
-		_thread.onResume();
+		if (thread!=null){
+		thread.onResume();
 		}
 		
 	}
@@ -140,7 +107,7 @@ public class GameActivity extends Activity{
 	protected void onPause(){
 		super.onPause();
 		
-		_thread.onPause();
+		thread.onPause();
 		panel.pause(); //destroys old thread
 		
 	}

@@ -1,6 +1,8 @@
 package sean.k.uts2120;
+import java.util.Date;
 import java.util.Iterator;
 
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,7 +17,7 @@ public class GameThread extends Thread implements SensorEventListener{
 	private Game game;
 
 	private SurfaceHolder _surfaceHolder;
-	
+	private SharedPreferences data;
 	
 	int framesAfterDeath;
 	final static int FRAMES_AFTER_DEATH = 5;
@@ -41,7 +43,7 @@ public class GameThread extends Thread implements SensorEventListener{
 	final static float TILTY_NOISE = 2f;
 	private SensorManager sensorManager;
 	private Sensor tiltSensor;
-	private DrawingPanel _panel;
+	private GameCanvas panel;
 	private GameScreen currentScreen;
 	//private PausedScreen pausedScreen;
 	private GameplayScreen gameplayScreen;
@@ -63,11 +65,11 @@ public class GameThread extends Thread implements SensorEventListener{
 	 */
 	
 	
-	public GameThread(Game theGame, SurfaceHolder surfaceHolder, DrawingPanel panel){
+	public GameThread(Game theGame, SurfaceHolder surfaceHolder, GameCanvas panel){
 		
 		game = theGame;
 		_surfaceHolder = surfaceHolder;
-		_panel = panel;
+		panel = panel;
 		//pausedScreen = new PausedScreen(this);
 		gameplayScreen = new GameplayScreen(this);
 		currentScreen = gameplayScreen; // so there is no null pointer
@@ -77,7 +79,7 @@ public class GameThread extends Thread implements SensorEventListener{
 	
 	public void startLevel(Level theLevel){
 		game.setLevel(theLevel);
-		game.renderLevel(_panel.getContext(),theLevel);
+		game.renderLevel(panel.getContext(),theLevel);
 		theLevel.initialize();
 	}
 	
@@ -88,7 +90,7 @@ public class GameThread extends Thread implements SensorEventListener{
 	
 	public void restartLevel(){
 		game.levelReset();
-		game.renderLevel(_panel.getContext(),game.getCurrentLevel());
+		game.renderLevel(panel.getContext(),game.getCurrentLevel());
 		game.getCurrentLevel().initialize();
 	}
 	
@@ -120,14 +122,14 @@ public class GameThread extends Thread implements SensorEventListener{
 	public void pause(GameScreen screen){
 		currentScreen.exit();
 		currentScreen = screen;
-		currentScreen.enter(_panel.getContext());
+		currentScreen.enter(panel.getContext());
 		paused = true;
 		touchEventBuffer = null;
 	}
 	public void unpause(){
 		currentScreen.exit();
 		currentScreen = gameplayScreen;
-		currentScreen.enter(_panel.getContext());
+		currentScreen.enter(panel.getContext());
 		paused = false;
 		touchEventBuffer = null;
 	}
@@ -144,7 +146,7 @@ public class GameThread extends Thread implements SensorEventListener{
 		tiltLastY = 0;
 		tiltLastZ = 0;
 		
-		game.renderGame(_panel.getContext());
+		game.renderGame(panel.getContext());
 
 		pause(new MainMenuScreen(this));
 	}
@@ -424,7 +426,7 @@ public class GameThread extends Thread implements SensorEventListener{
 			c = _surfaceHolder.lockCanvas(null);
 			synchronized(_surfaceHolder){
 
-				_panel.postInvalidate(); 
+				panel.postInvalidate(); 
 			}
 			
 		} finally {
@@ -436,6 +438,18 @@ public class GameThread extends Thread implements SensorEventListener{
 		}
 		
 		
+	}
+	
+	public void setData(SharedPreferences theData){
+		data = theData;
+	}
+	
+	private void save(){
+		SharedPreferences.Editor edit = data.edit();
+		//Date now = new Date();
+		edit.clear();
+		edit.putInt(GameActivity.HIGH_SCORE_KEY, game.getHighScore());
+		edit.commit();
 	}
 	
 	public void onPause(){

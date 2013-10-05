@@ -21,11 +21,12 @@ public class Game{
 	
 
 	
-	Player player;
+	private Player player;
 	
-	Level currentLevel;
+	private Level currentLevel;
 	
 	private int score;
+	private int highScore;
 	private int gold;
 	private float speed;
 
@@ -94,19 +95,19 @@ public class Game{
 	final static float SCORE_TEXT_HEIGHT_PERCENT_MARGIN_TOP=.4f;
 	final static float SCORE_MULTIPLIER_TEXT_HEIGHT_PERCENT_MARGIN_TOP = .5f;
 	
-	Paint healthPaint;
-	Paint boostPaint;
-	Paint marginPaint;
-	Paint scorePaint;
-	Paint scoreMultiplierPaint;
-	Paint goldPaint;
-	Paint passengerPaint;
+	private Paint healthPaint;
+	private Paint boostPaint;
+	private Paint marginPaint;
+	private Paint scorePaint;
+	private Paint scoreMultiplierPaint;
+	private Paint goldPaint;
+	private Paint passengerPaint;
 	
 	
-	float healthWidth;
-	float healthLength;
-	float boostWidth;
-	float boostLength;
+	private float healthWidth;
+	private float healthLength;
+	private float boostWidth;
+	private float boostLength;
 	
 	
 	
@@ -114,7 +115,7 @@ public class Game{
 	final static int UVA_BLUE = 0xff330099;
 	
 	private long upTime;
-	final long START_TIME = 0L;
+	private final long START_TIME = 0L;
 		
 	/*
 	 * this is the object that holds all relevant state
@@ -139,7 +140,7 @@ public class Game{
 		
 		pendingEntities = new ArrayList<GameEntity>();
 		tempPendingEntities = new ArrayList<GameEntity>();
-		
+		highScore = 0;
 	}
 	
 
@@ -642,6 +643,13 @@ public class Game{
 		}
 	}
 	
+	public void setHighScore(int theHighScore){
+		highScore = theHighScore;
+	}
+	
+	public int getHighScore(){
+		return highScore;
+	}
 
 
 

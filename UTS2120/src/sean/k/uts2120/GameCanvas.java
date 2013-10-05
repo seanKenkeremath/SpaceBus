@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback{
+public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 	
 
 	
@@ -17,13 +17,13 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback{
 	/*
 	 * this is the Android view that holds a canvas upon which the entire game is drawn
 	 */
-	public DrawingPanel(Context context){
+	public GameCanvas(Context context){
 		super(context);
 		getHolder().addCallback(this);
 	
 	}
 
-	public DrawingPanel(Context context, AttributeSet attr){
+	public GameCanvas(Context context, AttributeSet attr){
 		super(context, attr);
 		getHolder().addCallback(this);
 

@@ -9,9 +9,9 @@ public class UpgradeArmorButton extends UpgradeButton{
 	final static int LEVEL_THREE_PRICE = 600;
 	Armor armor;
 
-	public UpgradeArmorButton(GameThread theThread, float xPos, float yPos) {
-		super(theThread, xPos, yPos);
-		armor = thread.getGame().getPlayer().getArmor();
+	public UpgradeArmorButton(UpgradeMenu menu, Game game) {
+		super(menu, game);
+		armor = game.getPlayer().getArmor();
 	}
 
 	@Override
@@ -42,11 +42,5 @@ public class UpgradeArmorButton extends UpgradeButton{
 		return armor.getLevel()<Armor.MAX_LEVEL;
 	}
 
-	@Override
-	void drawIcon(Canvas canvas) {
-		paint.setColor(Color.WHITE);
-		canvas.drawText("A",hitbox.centerX(),hitbox.centerY(),paint);
-		
-	}
 
 }

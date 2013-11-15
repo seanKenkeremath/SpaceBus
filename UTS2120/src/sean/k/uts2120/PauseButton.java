@@ -31,7 +31,7 @@ public class PauseButton extends GameButton{
 
 	@Override
 	void click() {
-		thread.pause(new PausedScreen(thread));
+		thread.pause(new PausedMenu((GameActivity) thread.getContext()));
 		
 	}
 

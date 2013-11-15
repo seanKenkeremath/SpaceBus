@@ -34,7 +34,8 @@ public class QuitGameButton extends GameButton{
 		
 		thread.exitLevel(thread.getGame().getCurrentLevel());
 		thread.getGame().quit();
-		thread.pause(new MainMenuScreen(thread));
+		//thread.pause(new MainMenuScreen(thread));
+		thread.quit();
 		
 	}
 

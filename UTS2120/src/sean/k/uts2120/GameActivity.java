@@ -1,58 +1,71 @@
 package sean.k.uts2120;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
+import android.widget.ViewFlipper;
 
+public class GameActivity extends Activity {
 
-
-
-public class GameActivity extends Activity{
-
-	GameThread thread;
+	private GameThread thread;
 	GameCanvas panel;
-	Game game;
+	private ViewFlipper menuFlipper;
+	private Game game;
 	final static String HIGH_SCORE_KEY = "HighScore";
+	final static int MENU_PAUSE = 0;
+	final static int MENU_GAME_OVER = 1;
+	final static int MENU_LEVEL_COMPLETE = 2;
+	final static int MENU_UPGRADES = 3;
 
 	
-	
 
 
+	public void initialize() {
 
-
-	public void initialize(){
-		
 		game = new Game();
-		SharedPreferences data = getPreferences(MODE_PRIVATE);
+		SharedPreferences data = getSharedPreferences(
+				MainMenu.PREFERENCES_LABEL, MODE_PRIVATE);
 		game.setHighScore(data.getInt(HIGH_SCORE_KEY, 0));
 
 		panel.setGame(game);
 		panel.setData(data);
-	
-		
 
 		game.initialize();
+		
+		menuFlipper = (ViewFlipper) findViewById(R.id.game_menu);
+		menuFlipper.setVisibility(View.INVISIBLE);
+		
+		//buttons
+
+		
 	}
-	
 
-
-
-
-	
-	public GameCanvas getPanel(){
+	public ViewFlipper getMenuFlipper(){
+		return menuFlipper;
+	}
+	public GameCanvas getPanel() {
 		return panel;
 	}
+
+	public GameThread getThread(){
+		return thread;
+	}
 	
-	
+	public Game getGame(){
+		return game;
+	}
 	/*
-	 * the purpose of this class is to determine the screen dimensions,
-	 * set up the drawing panel and initializes the game thread.
-	 * 
+	 * the purpose of this class is to determine the screen dimensions, set up
+	 * the drawing panel and initializes the game thread.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,69 +75,68 @@ public class GameActivity extends Activity{
 		DisplayMetrics displaymetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 		Game.screenWidth = displaymetrics.widthPixels;
-		//Game.screenWidth = 600;
-		Game.screenHeight = displaymetrics.heightPixels*(1f-Game.BOTTOM_MARGIN_PERCENT-Game.TOP_MARGIN_PERCENT);
-		//Game.screenHeight = 600*(1f-Game.BOTTOM_MARGIN_PERCENT-Game.TOP_MARGIN_PERCENT);
-		Game.bottomMarginHeight = displaymetrics.heightPixels*Game.BOTTOM_MARGIN_PERCENT;
-		Game.topMarginHeight = displaymetrics.heightPixels*Game.TOP_MARGIN_PERCENT;
-		Game.totalHeight = Game.screenHeight+ Game.bottomMarginHeight+Game.topMarginHeight;
-		Game.velocitySlow = Game.VELOCITY_SLOW_PERCENT*Game.screenHeight;
-		Game.velocityMed = Game.VELOCITY_MEDIUM_PERCENT*Game.screenHeight;
-		Game.velocityFast = Game.VELOCITY_FAST_PERCENT*Game.screenHeight;
-		Game.tiltSensitivity = Game.TILT_SENSITIVITY_PERCENT_WIDTH_PER_G*Game.screenWidth;
-		Game.gameSpeedNormal = Game.GAME_SPEED_NORMAL_PERCENT*Game.screenHeight;
+		// Game.screenWidth = 600;
+		Game.screenHeight = displaymetrics.heightPixels
+				* (1f - Game.BOTTOM_MARGIN_PERCENT - Game.TOP_MARGIN_PERCENT);
+		// Game.screenHeight =
+		// 600*(1f-Game.BOTTOM_MARGIN_PERCENT-Game.TOP_MARGIN_PERCENT);
+		Game.bottomMarginHeight = displaymetrics.heightPixels
+				* Game.BOTTOM_MARGIN_PERCENT;
+		Game.topMarginHeight = displaymetrics.heightPixels
+				* Game.TOP_MARGIN_PERCENT;
+		Game.totalHeight = Game.screenHeight + Game.bottomMarginHeight
+				+ Game.topMarginHeight;
+		Game.velocitySlow = Game.VELOCITY_SLOW_PERCENT * Game.screenHeight;
+		Game.velocityMed = Game.VELOCITY_MEDIUM_PERCENT * Game.screenHeight;
+		Game.velocityFast = Game.VELOCITY_FAST_PERCENT * Game.screenHeight;
+		Game.tiltSensitivity = Game.TILT_SENSITIVITY_PERCENT_WIDTH_PER_G
+				* Game.screenWidth;
+		Game.gameSpeedNormal = Game.GAME_SPEED_NORMAL_PERCENT
+				* Game.screenHeight;
 		panel = (GameCanvas) findViewById(R.id.game_canvas);
 		initialize();
-		
+
 	}
-	
+
 	@Override
-	protected void onResume(){
+	protected void onResume() {
 		super.onResume();
-		
-		panel.resume(); //creates new thread
+
+		panel.resume(); // creates new thread
 		thread = panel.getGameThread();
 		thread.setAccelerometer((SensorManager) getSystemService(Context.SENSOR_SERVICE));
-		panel.setOnTouchListener(new OnTouchListener(){
+		panel.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent mEvent) {
-				if (mEvent.getAction() != MotionEvent.ACTION_UP){
+				if (mEvent.getAction() != MotionEvent.ACTION_UP) {
 					thread.setTouchInput(mEvent);
 					return true;
 				}
 				return true;
 			}
-			
+
 		});
 
-		
-		if (thread!=null){
-		thread.onResume();
+		if (thread != null) {
+			thread.onResume();
 		}
-		
+
 	}
-	
+
 	@Override
-	protected void onPause(){
+	protected void onPause() {
 		super.onPause();
-		
+
 		thread.onPause();
-		panel.pause(); //destroys old thread
-		
+		panel.pause(); // destroys old thread
+
 	}
-	
+
 	@Override
-	protected void onDestroy(){
+	protected void onDestroy() {
 		super.onDestroy();
 		game = null;
 	}
 
-
-
-	
-
-
-
-	
 }

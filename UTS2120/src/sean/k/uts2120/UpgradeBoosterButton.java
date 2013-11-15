@@ -9,9 +9,9 @@ public class UpgradeBoosterButton extends UpgradeButton{
 	final static int LEVEL_THREE_PRICE = 700;
 	Booster booster;
 
-	public UpgradeBoosterButton(GameThread theThread, float xPos, float yPos) {
-		super(theThread, xPos, yPos);
-		booster = thread.getGame().getPlayer().getBooster();
+	public UpgradeBoosterButton(UpgradeMenu menu, Game game) {
+		super(menu, game);
+		booster = game.getPlayer().getBooster();
 	}
 
 	@Override
@@ -42,11 +42,5 @@ public class UpgradeBoosterButton extends UpgradeButton{
 		return booster.getLevel()<Booster.MAX_LEVEL;
 	}
 
-	@Override
-	void drawIcon(Canvas canvas) {
-		paint.setColor(Color.WHITE);
-		canvas.drawText("B",hitbox.centerX(),hitbox.centerY(),paint);
-		
-	}
 
 }

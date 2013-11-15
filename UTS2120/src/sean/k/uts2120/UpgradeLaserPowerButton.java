@@ -1,8 +1,5 @@
 package sean.k.uts2120;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-
 public class UpgradeLaserPowerButton extends UpgradeButton{
 
 	
@@ -10,20 +7,13 @@ public class UpgradeLaserPowerButton extends UpgradeButton{
 	final static int UPGRADE_TWO = 1000;
 	Laser laser;
 	
-	public UpgradeLaserPowerButton(GameThread theThread, float xPos, float yPos, Laser theLaser) {
-		super(theThread, xPos, yPos);
-		laser = theLaser;
+	public UpgradeLaserPowerButton(UpgradeMenu menu, Game game) {
+		super(menu, game);
+		laser = game.getPlayer().getLaser();
 	}
 
 	@Override
 	void upgrade() {
-		/*
-		for (Weapon weapon: thread.getGame().getWeapons()){
-			if (weapon instanceof FlameThrower){
-				weapon.upgrade();
-			}
-		}
-		*/
 		
 		laser.upgradePower();
 
@@ -54,11 +44,5 @@ public class UpgradeLaserPowerButton extends UpgradeButton{
 		return false;
 	}
 
-	@Override
-	void drawIcon(Canvas canvas) {
-		paint.setColor(Color.WHITE);
-		canvas.drawText("P",hitbox.centerX(),hitbox.centerY(),paint);
-		
-	}
 
 }

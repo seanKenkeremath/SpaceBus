@@ -7,21 +7,15 @@ public class UpgradeRepairButton extends UpgradeButton{
 	
 	final static int REPAIR_COST = 100;
 
-	public UpgradeRepairButton(GameThread theThread, float xPos, float yPos) {
-		super(theThread, xPos, yPos);
+	public UpgradeRepairButton(UpgradeMenu menu, Game game) {
+		super(menu, game);
 
 	}
 
-	@Override
-	void drawIcon(Canvas canvas) {
-		paint.setColor(Color.WHITE);
-		canvas.drawText("R",hitbox.centerX(),hitbox.centerY(),paint);
-		
-	}
 
 	@Override
 	void upgrade() {
-		thread.getGame().getPlayer().repair();
+		game.getPlayer().repair();
 		
 	}
 
@@ -37,7 +31,7 @@ public class UpgradeRepairButton extends UpgradeButton{
 
 	@Override
 	boolean available() {
-		return (thread.getGame().getPlayer().getHealth()<thread.getGame().getPlayer().getMaxHealth());
+		return (game.getPlayer().getHealth()<game.getPlayer().getMaxHealth());
 	}
 
 }

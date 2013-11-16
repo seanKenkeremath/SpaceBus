@@ -1,41 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-        
+    android:background="#000000" >
+
     <TextView
         android:id="@+id/upgrade_screen_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="Upgrades"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <GridView
+        android:id="@+id/upgrade_screen_button_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upgrade_screen_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:columnWidth="50dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:listSelector="#00000000"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" >
+    </GridView>
+
+    <TextView
+        android:id="@+id/upgrade_screen_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upgrade_screen_button_grid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Message"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/upgrade_screen_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upgrade_screen_message"
+        android:layout_centerHorizontal="true"
+        android:text="$100"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/upgrade_screen_your_gold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upgrade_screen_cost"
+        android:layout_centerHorizontal="true"
+        android:text="You have: $100"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/upgrade_screen_buy"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upgrade_screen_your_gold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Buy" />
 
     <Button
         android:id="@+id/upgrade_screen_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:text="Back" />
 
-    <Button
-        android:id="@+id/upgrade_screen_buy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quit" />
-    
-    
-    <GridView
-    android:id="@+id/upgrade_screen_button_grid"
-    android:listSelector="#00000000"
-    android:numColumns="3"
-    android:background ="@android:drawable/alert_dark_frame" 
-    android:stretchMode="columnWidth"
-    android:layout_width="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_height="wrap_content" />
-    
-
-</LinearLayout>
+</RelativeLayout>

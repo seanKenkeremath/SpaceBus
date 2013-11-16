@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/paused_screen_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="50dp"
-    android:id="@+id/paused_screen_panel"
-    android:layout_gravity="center"
+    android:background="@android:drawable/alert_dark_frame"
     android:orientation="vertical" >
 
-    
     <TextView
         android:id="@+id/paused_screen_text"
         android:layout_width="wrap_content"

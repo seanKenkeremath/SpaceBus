@@ -20,6 +20,7 @@ abstract class Level {
 	Paint paint;
 	Matrix paintMatrix;
 	Paint objectivePaint;
+	String name;
 	
 	final static int NO_IMAGE = 0;
 
@@ -63,7 +64,8 @@ abstract class Level {
 	 * You also must implement the boolean method isComplete() that contains the conditions
 	 * for completion of the Level.
 	 */
-	public Level(Game theGame, int theBackgroundImageID, float theDistancePercent){
+	public Level(Game theGame, String name, int theBackgroundImageID, float theDistancePercent){
+		this.name = name;
 		backgroundImageID = theBackgroundImageID;
 		game = theGame;
 		paint = new Paint();
@@ -128,6 +130,10 @@ abstract class Level {
 	public void update(){
 		traveled = traveled+game.getSpeed(); 
 		spawnEntities();
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	public int getTotalPassengers(){

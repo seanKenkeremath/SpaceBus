@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 public class LevelDebug extends Level{
 
 	public LevelDebug(Game theGame) {
-		super(theGame, Level.NO_IMAGE, 100f);
+		super(theGame, "Level Debug", Level.NO_IMAGE, 1f);
 
 	}
 
@@ -32,13 +32,15 @@ public class LevelDebug extends Level{
 	@Override
 	Level nextLevel() {
 
-		return this;
+		return new LevelDebug(game);
 	}
 
 	@Override
 	boolean isComplete() {
 
-		return false;
+		//return false;
+		return traveled>=distance;
+
 	}
 
 }

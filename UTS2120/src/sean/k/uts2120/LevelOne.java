@@ -26,7 +26,7 @@ public class LevelOne extends Level{
 	 * implementation of Level class.  Travel from Earth to the Moon
 	 */
 	public LevelOne(Game theGame) {
-		super(theGame, BACKGROUND_IMAGE_ID, DISTANCE_PERCENT);
+		super(theGame, "Level One",BACKGROUND_IMAGE_ID, DISTANCE_PERCENT);
 		
 	}
 
@@ -103,7 +103,7 @@ public class LevelOne extends Level{
 		double xMultiplier;
 		double distanceMultiplier;
 		
-		Log.d("NUMEN", ""+numberEnemies);
+		Log.d(GameActivity.DEBUG,"Total Images Cached From Screen:"+ numberEnemies);
 		for (int i = 0; i <numberEnemies; i++){
 			xMultiplier = Math.random();
 			distanceMultiplier = Math.random();

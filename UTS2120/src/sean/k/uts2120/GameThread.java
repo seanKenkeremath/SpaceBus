@@ -12,6 +12,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -50,7 +51,6 @@ public class GameThread extends Thread implements SensorEventListener {
 	private Sensor tiltSensor;
 	private GameCanvas panel;
 	private GameScreen currentScreen;
-	private PausedScreen pausedScreen;
 	private GameplayScreen gameplayScreen;
 
 	/*
@@ -127,6 +127,8 @@ public class GameThread extends Thread implements SensorEventListener {
 	}
 
 	public void pause(GameMenu menu) {
+		Log.d(GameActivity.DEBUG, "pausing GameThread and opening menu");
+		getGame().paused = true;
 
 		paused = true;
 		touchEventBuffer = null;
@@ -134,9 +136,18 @@ public class GameThread extends Thread implements SensorEventListener {
 		menu.execute();
 
 	}
-
 	
+	public void pause() {
+		Log.d(GameActivity.DEBUG, "pausing GameThread without menu");
+		getGame().paused = true;
+		paused = true;
+		touchEventBuffer = null;
+	}
+
 	public void pause(GameScreen screen) {
+		Log.d(GameActivity.DEBUG, "pausing GameThread");
+		getGame().paused = true;
+
 		currentScreen.exit();
 		currentScreen = screen;
 		currentScreen.enter(panel.getContext());
@@ -144,9 +155,9 @@ public class GameThread extends Thread implements SensorEventListener {
 		touchEventBuffer = null;
 		save();
 	}
-	
 
 	public void unpause() {
+		Log.d(GameActivity.DEBUG, "Unpausing GameThread");
 		// unpause from other gamescreen
 		if (currentScreen != gameplayScreen) {
 			currentScreen.exit();
@@ -158,7 +169,6 @@ public class GameThread extends Thread implements SensorEventListener {
 			currentScreen = gameplayScreen;
 			paused = false;
 			touchEventBuffer = null;
-
 
 		}
 
@@ -174,25 +184,40 @@ public class GameThread extends Thread implements SensorEventListener {
 
 	private void initialize() {
 
+		Log.d(GameActivity.DEBUG, "Thread initializing");
 		tiltInitialized = false;
 		tiltEvent = null;
 		tiltLastX = 0;
 		tiltLastY = 0;
 		tiltLastZ = 0;
 
-		game.renderGame(panel.getContext());
+		game.renderGame(getContext());
 
-		// pause(new MainMenuScreen(this));
+		if (getGame().started == false) {
+			Log.d(GameActivity.DEBUG, "Game is not yet started.");
+			getGame().gameReset();
+			Log.d(GameActivity.DEBUG, "Starting First Level");
+			startLevel(new LevelOne(getGame()));
+			getGame().started = true;
+			unpause();
+			// startLevel(new LevelDebug(getGame()));
+		} else {
+			Log.d(GameActivity.DEBUG, "Game already started.");
+			if (getGame().paused){
+				Log.d(GameActivity.DEBUG, "Game was previously paused. Pausing");
+				pause();
+			} else{
+				Log.d(GameActivity.DEBUG, "Game was previously unpaused");
+				unpause();
 
-		getGame().gameReset();
-		startLevel(new LevelOne(getGame()));
-		unpause();
+			}
+		}
 	}
 
 	public void quit() {
 		panel.getContext().startActivity(
-				new Intent(panel.getContext(), MainMenu.class));
-		((GameActivity) panel.getContext()).finish();
+				new Intent(getContext(), MainMenu.class));
+		((GameActivity) getContext()).finish();
 	}
 
 	@Override
@@ -236,10 +261,13 @@ public class GameThread extends Thread implements SensorEventListener {
 
 			if (game.getCurrentLevel().isComplete()) {
 				game.getCurrentLevel().complete();
-				/*pause(new LevelCompleteScreen(this,
-						LevelCompleteScreen.BUTTON_WAIT_TIME));*/
-				pause(new LevelCompleteMenu((GameActivity) getContext(),DELAY_AFTER_LEVEL));
-						
+				/*
+				 * pause(new LevelCompleteScreen(this,
+				 * LevelCompleteScreen.BUTTON_WAIT_TIME));
+				 */
+				pause(new LevelCompleteMenu((GameActivity) getContext(),
+						DELAY_AFTER_LEVEL));
+
 				return;
 			}
 
@@ -270,8 +298,8 @@ public class GameThread extends Thread implements SensorEventListener {
 	}
 
 	private void updateInput() {
-		
-		if (paused){
+
+		if (paused) {
 			return;
 		}
 		// act on input
@@ -329,8 +357,8 @@ public class GameThread extends Thread implements SensorEventListener {
 
 		if (touchEventBuffer != null) {
 			// listen for touch events
-				processTouchEvent();
-			
+			processTouchEvent();
+
 		}
 
 	}

@@ -33,6 +33,17 @@ public class LevelCompleteMenu extends GameMenu{
 			
 		});
 		
+		Button quitButton = (Button) activity.findViewById(R.id.level_complete_screen_quit);
+		quitButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				activity.getThread().quit();
+
+			}
+			
+		});		
+		
 		Button upgradesButton = (Button)activity.findViewById(R.id.level_complete_screen_upgrade);
 		upgradesButton.setOnClickListener(new OnClickListener(){
 

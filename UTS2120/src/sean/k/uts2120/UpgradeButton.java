@@ -26,7 +26,7 @@ abstract class UpgradeButton {
 		} 
 		
 	}
-	
+		
 	abstract void upgrade();
 	
 	abstract int getPrice();

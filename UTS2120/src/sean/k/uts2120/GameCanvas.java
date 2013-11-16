@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -95,8 +96,11 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 	
 	public void resume(){ //for activity onresume
 		thread = new GameThread(game, data, getHolder(), this);
+		Log.d(GameActivity.DEBUG, "Created new thread with Game");
 		thread.setRunning(true);
 		thread.start();
+		Log.d(GameActivity.DEBUG, "Thread Started");
+
 	}
 		
 	}

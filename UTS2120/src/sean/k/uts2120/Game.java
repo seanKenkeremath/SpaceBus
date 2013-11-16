@@ -25,6 +25,9 @@ public class Game{
 	
 	private Level currentLevel;
 	
+	public boolean started;
+	public boolean paused;
+	
 	private int score;
 	private int highScore;
 	private int gold;
@@ -141,11 +144,13 @@ public class Game{
 		pendingEntities = new ArrayList<GameEntity>();
 		tempPendingEntities = new ArrayList<GameEntity>();
 		highScore = 0;
+		
+
 	}
 	
 
 	public void initialize(){
-		
+		Log.d(GameActivity.DEBUG,"Initializing Game. Paused = false, started = false, resetting score");
 		/*
 		 * this method is called every time the game is started or restarted
 		 */
@@ -199,6 +204,9 @@ public class Game{
 		score = 0;
 		gold = 0;
 		comboBonusTimer = 0;
+		
+		started = false;
+		paused = false;
 
 	}
 	
@@ -483,26 +491,50 @@ public class Game{
 	 * This includes the images of the Player, PickUps, and Effects.
 	 */
 	public void renderGame(Context context){
+		
+		Log.d(GameActivity.DEBUG, "Rendering game, adding bitmaps to cache");
+		
+		int totalCached = 0;
+
+		
 		Bitmap copperImage = createImage(context, CopperDrop.IMAGE_ID, (int)(Game.screenHeight*MoneyDrop.WIDTH_PERCENT), (int)(Game.screenHeight*MoneyDrop.HEIGHT_PERCENT));
 		cacheImage(CopperDrop.IMAGE_ID,copperImage);
+		totalCached++;
+		
 		Bitmap silverImage = createImage(context, SilverDrop.IMAGE_ID, (int)(Game.screenHeight*MoneyDrop.WIDTH_PERCENT), (int)(Game.screenHeight*MoneyDrop.HEIGHT_PERCENT));
 		cacheImage(SilverDrop.IMAGE_ID,silverImage);
+		totalCached++;
+
 		Bitmap goldImage = createImage(context, GoldDrop.IMAGE_ID, (int)(Game.screenHeight*MoneyDrop.WIDTH_PERCENT), (int)(Game.screenHeight*MoneyDrop.HEIGHT_PERCENT));
 		cacheImage(GoldDrop.IMAGE_ID,goldImage);
+		totalCached++;
+
 		Bitmap emeraldImage = createImage(context, EmeraldDrop.IMAGE_ID, (int)(Game.screenHeight*MoneyDrop.WIDTH_PERCENT), (int)(Game.screenHeight*MoneyDrop.HEIGHT_PERCENT));
 		cacheImage(EmeraldDrop.IMAGE_ID,emeraldImage);
+		totalCached++;
+
 		Bitmap purpImage = createImage(context, PurpDrop.IMAGE_ID, (int)(Game.screenHeight*MoneyDrop.WIDTH_PERCENT), (int)(Game.screenHeight*MoneyDrop.HEIGHT_PERCENT));
 		cacheImage(PurpDrop.IMAGE_ID,purpImage);
+		totalCached++;
+
 		
 		//make entity
 		Bitmap cannonImage = createImage(context, Weapon.IMAGE_ID, (int)(Game.screenHeight*Weapon.CANNON_WIDTH_PERCENT), (int)(Game.screenHeight*Weapon.CANNON_HEIGHT_PERCENT));
 		cacheImage(Weapon.IMAGE_ID, cannonImage);
+		totalCached++;
+
 		
 		Bitmap explosionImage = createImage(context, Explosion.IMAGE_ID, (int)(Explosion.HEIGHT_PERCENT*Game.screenHeight), (int)(Explosion.WIDTH_PERCENT*Game.screenHeight));
 		cacheImage(Explosion.IMAGE_ID, explosionImage);
-		
+		totalCached++;
+
 		Bitmap laserExplosionImage = createImage(context, DamageExplosion.IMAGE_ID, (int)(Laser.STARTING_EXPLOSION_RADIUS_PERCENT*Game.screenHeight*2), (int)(Laser.STARTING_EXPLOSION_RADIUS_PERCENT*2*Game.screenHeight));
 		cacheImage(DamageExplosion.IMAGE_ID, laserExplosionImage);
+		totalCached++;
+
+		
+		Log.d(GameActivity.DEBUG,"Total Images Cached From Level:"+ totalCached + "");
+		Log.d(GameActivity.DEBUG,"Total Cache Size: " + bitmapCache.size());
 	}
 	
 	/*
@@ -511,6 +543,7 @@ public class Game{
 	 * This Set can be iterated through to cache all relevant images.
 	 */
 	public void renderLevel(Context context, Level theLevel){
+		Log.d(GameActivity.DEBUG, "Rendering Level" +theLevel.getName()+", adding bitmaps to cache");
 
 		int totalCached = 0;
 		for (GameEntity entity: theLevel.getAllEntities()){
@@ -524,14 +557,15 @@ public class Game{
 			totalCached++;
 		}
 		
-		Log.d("Total Images Cached From Level:", totalCached + "");
-		Log.d("Total Cache Size: ", "" + bitmapCache.size());
+		Log.d(GameActivity.DEBUG,"Total Images Cached From Level:"+ totalCached + "");
+		Log.d(GameActivity.DEBUG,"Total Cache Size: " + bitmapCache.size());
 	}
 	
 	/*
 	 * Iteratively removed all GameEntity images within this Level from the cache.
 	 */
 	public void unrenderLevel(Level theLevel){
+		Log.d(GameActivity.DEBUG,"Unrending Level: "+theLevel.getName() + ". Removing Bitmaps from Cache");
 		int totalUncached = 0;
 		
 		for (GameEntity entity: theLevel.getAllEntities()){
@@ -544,8 +578,8 @@ public class Game{
 			totalUncached++;
 		}
 		
-		Log.d("Total Images Removed from Cache:", totalUncached+"");
-		Log.d("Total Images in Cache:", bitmapCache.size()+"");
+		Log.d(GameActivity.DEBUG,"Total Images Removed from Cache:"+ totalUncached+"");
+		Log.d(GameActivity.DEBUG,"Total Images in Cache:"+ bitmapCache.size()+"");
 	
 	}
 	
@@ -556,6 +590,7 @@ public class Game{
 	 * a Level is being rendered.
 	 */
 	public void renderScreen(Context context, GameScreen screen){
+		Log.d(GameActivity.DEBUG,"Rendering GameScreen. Adding bitmaps to Cache");
 		int totalCached = 0;
 
 		if (screen.getBackgroundImageID()!=GameScreen.NO_BACKGROUND_IMAGE){
@@ -564,14 +599,16 @@ public class Game{
 			totalCached++;
 		}
 		
-		Log.d("Total Images Cached From Screen:", totalCached + "");
-		Log.d("Total Cache Size: ", "" + bitmapCache.size());
+		Log.d(GameActivity.DEBUG,"Total Images Cached From Screen:"+ totalCached);
+		Log.d(GameActivity.DEBUG,"Total Cache Size: " + bitmapCache.size());
 	}
 	
 	/*
 	 * removes screen graphics from cache.
 	 */
 	public void unrenderScreen(GameScreen screen){
+		Log.d(GameActivity.DEBUG,"Unrendering GameScreen. Removing Bitmaps from cache");
+
 		int totalUncached = 0;
 
 		if (bitmapCache.get(screen.getBackgroundImageID())!=null){
@@ -579,8 +616,8 @@ public class Game{
 			totalUncached++;
 		}
 		
-		Log.d("Total Images Removed from Cache:", totalUncached+"");
-		Log.d("Total Images in Cache:", bitmapCache.size()+"");
+		Log.d(GameActivity.DEBUG,"Total Images Removed from Cache:"+totalUncached);
+		Log.d(GameActivity.DEBUG,"Total Images in Cache:"+ bitmapCache.size());
 	
 	}
 	
@@ -838,6 +875,7 @@ public class Game{
 	 * is reset and when the game is reset.
 	 */
 	private void clearEntities(){
+		Log.d(GameActivity.DEBUG,"Clearing all entities from list");
 		clearAnimations();
 		enemies.clear();
 		effects.clear();
@@ -855,6 +893,7 @@ public class Game{
 	 * the method called as you are leaving a level
 	 */
 	public void levelExit(){
+		Log.d(GameActivity.DEBUG,"Exiting Level");
 		clearEntities();
 		player.clearPassengerCount();
 		player.reset(false);
@@ -866,7 +905,7 @@ public class Game{
 	 * the method called when you retry a level
 	 */
 	public void levelReset(){
-		//consider deleting
+		Log.d(GameActivity.DEBUG,"Level resetting");
 		clearEntities();
 		player.clearPassengerCount();
 		player.reset(true);
@@ -878,6 +917,7 @@ public class Game{
 	 * the method called when you restart the game
 	 */
 	public void gameReset(){
+		Log.d(GameActivity.DEBUG,"Game resetting");
 		clearEntities();
 		player = new Player(this, Game.screenWidth/2);	
 		initialize();
@@ -887,6 +927,8 @@ public class Game{
 	 * the method called when you quit the game
 	 */
 	public void quit(){
+		Log.d(GameActivity.DEBUG,"Quitting Game");
+
 		/*
 		currentLevel = null;
 		player = null;

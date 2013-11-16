@@ -6,14 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class UpgradeGridAdapter extends BaseAdapter{
-	private Context context;
+	private GameActivity activity;
 	private UpgradeMenu menu;
 	
-	public UpgradeGridAdapter(Context context, UpgradeMenu menu) {
-		this.context = context;
+	public UpgradeGridAdapter(GameActivity activity, UpgradeMenu menu) {
+		this.activity = activity;
 		this.menu = menu;
 	}
 
@@ -33,7 +35,7 @@ public class UpgradeGridAdapter extends BaseAdapter{
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		LayoutInflater inflater = (LayoutInflater) context
+		LayoutInflater inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		View gridView;
@@ -42,7 +44,7 @@ public class UpgradeGridAdapter extends BaseAdapter{
 
 		if (convertView == null) {
 
-			gridView = new View(context);
+			gridView = new View(activity);
 
 			// get layout from inventoryitem.xml
 			gridView = inflater.inflate(R.layout.upgrade_grid_item, null);
@@ -63,8 +65,10 @@ public class UpgradeGridAdapter extends BaseAdapter{
 		View upgrade = gridView
 				.findViewById(R.id.upgrade_grid_item);
 		ImageView upgradeIcon = (ImageView) gridView.findViewById(R.id.upgrade_grid_item_image);
-		
+
 		UpgradeButton button = menu.getUpgradeButtons().get(position);
+		
+		//if upgrade not available
 		if (!button.available()){
 			upgrade.setVisibility(View.INVISIBLE);
 		} else{
@@ -78,6 +82,7 @@ public class UpgradeGridAdapter extends BaseAdapter{
 			upgradeIcon.setVisibility(View.VISIBLE);
 
 		}
+		
 
 		return gridView;
 	}

@@ -20,7 +20,7 @@ public class LevelTwo extends Level{
 	 * implementation of Level class. Travel from Moon to Mars
 	 */
 	public LevelTwo(Game theGame) {
-		super(theGame, GameEntity.NO_IMAGE, DISTANCE_PERCENT);
+		super(theGame, "Level Two", GameEntity.NO_IMAGE, DISTANCE_PERCENT);
 		
 	}
 

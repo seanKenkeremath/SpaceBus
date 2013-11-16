@@ -2,16 +2,14 @@ package sean.k.uts2120;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.ViewFlipper;
 
 public class GameActivity extends Activity {
@@ -21,6 +19,7 @@ public class GameActivity extends Activity {
 	private ViewFlipper menuFlipper;
 	private Game game;
 	final static String HIGH_SCORE_KEY = "HighScore";
+	final static String DEBUG = "SPACEBUS_DEBUG";
 	final static int MENU_PAUSE = 0;
 	final static int MENU_GAME_OVER = 1;
 	final static int MENU_LEVEL_COMPLETE = 2;
@@ -32,9 +31,13 @@ public class GameActivity extends Activity {
 	public void initialize() {
 
 		game = new Game();
+		Log.d(DEBUG, "Creating new Game Object");
 		SharedPreferences data = getSharedPreferences(
 				MainMenu.PREFERENCES_LABEL, MODE_PRIVATE);
-		game.setHighScore(data.getInt(HIGH_SCORE_KEY, 0));
+		int highScore = data.getInt(HIGH_SCORE_KEY, 0);
+		game.setHighScore(highScore);
+		Log.d(DEBUG, "Loaded high score:" + highScore);
+
 
 		panel.setGame(game);
 		panel.setData(data);
@@ -43,10 +46,7 @@ public class GameActivity extends Activity {
 		
 		menuFlipper = (ViewFlipper) findViewById(R.id.game_menu);
 		menuFlipper.setVisibility(View.INVISIBLE);
-		
-		//buttons
-
-		
+			
 	}
 
 	public ViewFlipper getMenuFlipper(){
@@ -71,6 +71,7 @@ public class GameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Log.d(DEBUG, "OnCreate");
 		setContentView(R.layout.game);
 		DisplayMetrics displaymetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -101,7 +102,7 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		Log.d(DEBUG, "OnResume");
 		panel.resume(); // creates new thread
 		thread = panel.getGameThread();
 		thread.setAccelerometer((SensorManager) getSystemService(Context.SENSOR_SERVICE));
@@ -127,15 +128,18 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-
+		Log.d(DEBUG, "OnPause");
 		thread.onPause();
 		panel.pause(); // destroys old thread
+		Log.d(DEBUG,"Old thread destroyed");
 
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		Log.d(DEBUG,"On Destroy, nulling Game");
+
 		game = null;
 	}
 

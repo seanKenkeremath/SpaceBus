@@ -136,7 +136,7 @@ public class GameThread extends Thread implements SensorEventListener {
 		menu.execute();
 
 	}
-	
+
 	public void pause() {
 		Log.d(GameActivity.DEBUG, "pausing GameThread without menu");
 		getGame().paused = true;
@@ -163,10 +163,13 @@ public class GameThread extends Thread implements SensorEventListener {
 			currentScreen.exit();
 			currentScreen = gameplayScreen;
 			currentScreen.enter(panel.getContext());
+			getGame().paused = false;
 			paused = false;
 			touchEventBuffer = null;
 		} else { // unpause from dialog box
 			currentScreen = gameplayScreen;
+			getGame().paused = false;
+
 			paused = false;
 			touchEventBuffer = null;
 
@@ -203,10 +206,10 @@ public class GameThread extends Thread implements SensorEventListener {
 			// startLevel(new LevelDebug(getGame()));
 		} else {
 			Log.d(GameActivity.DEBUG, "Game already started.");
-			if (getGame().paused){
+			if (getGame().paused) {
 				Log.d(GameActivity.DEBUG, "Game was previously paused. Pausing");
 				pause();
-			} else{
+			} else {
 				Log.d(GameActivity.DEBUG, "Game was previously unpaused");
 				unpause();
 

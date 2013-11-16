@@ -129,6 +129,10 @@ public class GameActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		Log.d(DEBUG, "OnPause");
+		if (!game.paused){
+			Log.d(DEBUG,"Game automatically paused");
+			thread.pause(new PausedMenu(this));
+		}
 		thread.onPause();
 		panel.pause(); // destroys old thread
 		Log.d(DEBUG,"Old thread destroyed");

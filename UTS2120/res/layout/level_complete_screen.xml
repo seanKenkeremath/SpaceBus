@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/alert_dark_frame"
+    android:padding="50dp"
     android:orientation="vertical" >
 
     <TextView

@@ -7,7 +7,7 @@ public class UpgradeLaserSpeedButton extends UpgradeButton{
 	Laser laser;
 	
 	public UpgradeLaserSpeedButton(UpgradeMenu menu, Game game) {
-		super(menu, game);
+		super(menu, game,R.drawable.speedicon);
 		laser = game.getPlayer().getLaser();
 	}
 

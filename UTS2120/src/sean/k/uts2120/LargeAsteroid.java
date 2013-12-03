@@ -32,6 +32,10 @@ public class LargeAsteroid extends Asteroid{
 		return new LargeAsteroid(game, xPos, yPos);
 	}
 
+	@Override
+	public void createLoot() {
+		game.addEntity(new GoldDrop(game, xPos, yPos));
+	}
 	
 	
 }

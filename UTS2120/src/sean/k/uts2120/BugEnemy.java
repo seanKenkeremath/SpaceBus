@@ -74,7 +74,7 @@ public class BugEnemy extends Enemy{
 	@Override
 	void createLoot() {
 
-			game.addEntity(new CopperDrop(game,xPos,yPos));
+			game.addEntity(new SilverDrop(game,xPos,yPos));
 			
 	}
 

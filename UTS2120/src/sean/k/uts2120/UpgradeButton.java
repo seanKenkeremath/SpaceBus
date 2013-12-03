@@ -6,13 +6,15 @@ abstract class UpgradeButton {
 	UpgradeMenu menu;
 	Game game;
 	public boolean selected;
+	private int iconImageID;
 
 	
-	public UpgradeButton(UpgradeMenu menu, Game game) {
+	public UpgradeButton(UpgradeMenu menu, Game game, int iconImageID) {
 
 		selected = false;
 		this.menu = menu;
 		this.game = game;
+		this.iconImageID = iconImageID;
 		
 	}
 
@@ -26,6 +28,8 @@ abstract class UpgradeButton {
 		} 
 		
 	}
+	
+	
 		
 	abstract void upgrade();
 	
@@ -34,5 +38,9 @@ abstract class UpgradeButton {
 	abstract String getMessage();
 	
 	abstract boolean available();
+	
+	public int getIconID(){
+		return iconImageID;
+	}
 
 }

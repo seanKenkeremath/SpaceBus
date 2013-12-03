@@ -24,6 +24,8 @@ public class GameActivity extends Activity {
 	final static int MENU_GAME_OVER = 1;
 	final static int MENU_LEVEL_COMPLETE = 2;
 	final static int MENU_UPGRADES = 3;
+	final static int MENU_GAME_COMPLETE = 4;
+
 
 	
 

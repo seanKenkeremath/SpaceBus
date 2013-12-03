@@ -30,6 +30,7 @@ public class Game{
 	
 	private int score;
 	private int highScore;
+	boolean newHighScore;
 	private int gold;
 	private float speed;
 
@@ -144,6 +145,7 @@ public class Game{
 		pendingEntities = new ArrayList<GameEntity>();
 		tempPendingEntities = new ArrayList<GameEntity>();
 		highScore = 0;
+		newHighScore = false;
 		
 
 	}
@@ -939,6 +941,7 @@ public class Game{
 	private void updateHighScore(){
 		if (score>highScore){
 			highScore = score;
+			newHighScore = true;
 		}
 	}
 	

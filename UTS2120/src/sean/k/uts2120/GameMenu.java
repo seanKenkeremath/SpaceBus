@@ -50,5 +50,6 @@ abstract class GameMenu {
 
 	}
 	
+	
 	abstract void initialize();
 }

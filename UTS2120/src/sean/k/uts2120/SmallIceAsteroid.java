@@ -19,4 +19,10 @@ public class SmallIceAsteroid extends Asteroid{
 		return new SmallIceAsteroid(game, xPos,yPos);
 	}
 
+	@Override
+	void createLoot() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

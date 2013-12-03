@@ -36,6 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             layout="@layout/upgrade_screen" />
+
+        <include
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            layout="@layout/game_complete_screen" />
     </ViewFlipper>
 
 </FrameLayout>

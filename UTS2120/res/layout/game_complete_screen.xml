@@ -7,15 +7,15 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/level_complete_screen_text"
+        android:id="@+id/game_complete_screen_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Level Complete"
+        android:text="Route Complete"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/level_complete_screen_bonus"
+        android:id="@+id/game_complete_screen_bonus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -25,19 +25,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/level_complete_screen_upgrade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upgrades" />
-
-    <Button
-        android:id="@+id/level_complete_screen_next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Next Level" />
-
-    <Button
-        android:id="@+id/level_complete_screen_quit"
+        android:id="@+id/game_complete_screen_quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quit" />

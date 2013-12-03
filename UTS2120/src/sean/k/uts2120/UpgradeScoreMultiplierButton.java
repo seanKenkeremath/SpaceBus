@@ -11,7 +11,7 @@ public class UpgradeScoreMultiplierButton extends UpgradeButton{
 	final static int LEVEL_FOUR_PRICE = 3000;
 
 	public UpgradeScoreMultiplierButton(UpgradeMenu menu, Game game) {
-		super(menu, game);
+		super(menu, game,R.drawable.scoreicon);
 		// TODO Auto-generated constructor stub
 	}
 

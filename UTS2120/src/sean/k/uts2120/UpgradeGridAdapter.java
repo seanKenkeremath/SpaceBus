@@ -68,6 +68,8 @@ public class UpgradeGridAdapter extends BaseAdapter{
 
 		UpgradeButton button = menu.getUpgradeButtons().get(position);
 		
+		upgradeIcon.setImageResource(button.getIconID());
+		
 		//if upgrade not available
 		if (!button.available()){
 			upgrade.setVisibility(View.INVISIBLE);

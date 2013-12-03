@@ -1,6 +1,5 @@
 package sean.k.uts2120;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import android.app.Activity;
@@ -15,7 +14,6 @@ import android.hardware.SensorManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.View;
 import android.widget.ViewFlipper;
 
 public class GameThread extends Thread implements SensorEventListener {
@@ -28,7 +26,7 @@ public class GameThread extends Thread implements SensorEventListener {
 
 	int framesAfterDeath;
 	final static int FRAMES_AFTER_DEATH = 5;
-	final static long DELAY_AFTER_LEVEL = 2000L;
+	final static long DELAY_AFTER_LEVEL = 1500L;
 
 	private boolean running;
 	private boolean paused;
@@ -200,7 +198,7 @@ public class GameThread extends Thread implements SensorEventListener {
 			Log.d(GameActivity.DEBUG, "Game is not yet started.");
 			getGame().gameReset();
 			Log.d(GameActivity.DEBUG, "Starting First Level");
-			startLevel(new LevelOne(getGame()));
+			startLevel(new LevelEarthMoon(getGame()));
 			getGame().started = true;
 			unpause();
 			// startLevel(new LevelDebug(getGame()));
@@ -268,8 +266,14 @@ public class GameThread extends Thread implements SensorEventListener {
 				 * pause(new LevelCompleteScreen(this,
 				 * LevelCompleteScreen.BUTTON_WAIT_TIME));
 				 */
-				pause(new LevelCompleteMenu((GameActivity) getContext(),
-						DELAY_AFTER_LEVEL));
+				
+				if (game.getCurrentLevel().nextLevel()!=null){
+					pause(new LevelCompleteMenu((GameActivity) getContext(),
+							DELAY_AFTER_LEVEL));
+				} else{
+					pause(new GameCompleteMenu((GameActivity) getContext(),
+							DELAY_AFTER_LEVEL));
+				}
 
 				return;
 			}

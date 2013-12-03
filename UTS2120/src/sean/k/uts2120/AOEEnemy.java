@@ -5,7 +5,7 @@ public class AOEEnemy extends Enemy{
 	final static float HEIGHT_PERCENT = 0.1f;
 	final static float WIDTH_PERCENT = 0.1f;
 
-	final static int IMAGE_ID = R.drawable.megilloutrage;
+	//final static int IMAGE_ID = R.drawable.megilloutrage;
 	final static int IMAGE_ID2 = R.drawable.megillhappy;
 	final static int HEALTH = SmallAsteroid.HEALTH*2;
 	final static int DAMAGE = Player.STARTING_HEALTH/15+1;
@@ -23,7 +23,8 @@ public class AOEEnemy extends Enemy{
 
 	
 	public AOEEnemy(Game theGame, float xPosition, float yPosition) {
-		super(theGame, IMAGE_ID, xPosition, yPosition, Game.screenHeight*HEIGHT_PERCENT, Game.screenHeight*HEIGHT_PERCENT,DAMAGE,HEALTH, POINTS);
+		super(theGame, IMAGE_ID2, xPosition, yPosition, Game.screenHeight*HEIGHT_PERCENT, Game.screenHeight*HEIGHT_PERCENT,DAMAGE,HEALTH, POINTS);
+		childEntities.add(new AOEEnemyShot(game,0f,0f));
 		recharge = 0;
 		stopped = 0;
 		velocityY = Game.calcSpeed(SPEEDY_PERCENT);
@@ -51,7 +52,7 @@ public class AOEEnemy extends Enemy{
 		if (stopped==0){
 			velocityX = Game.calcSpeed(SPEEDX_PERCENT);
 			velocityY = Game.calcSpeed(SPEEDY_PERCENT);
-			bitmap = game.getBitmap(IMAGE_ID);
+			//bitmap = game.getBitmap(IMAGE_ID);
 		}
 		
 		if (recharge > 0 || yPos<Game.screenHeight/2) {
@@ -62,7 +63,7 @@ public class AOEEnemy extends Enemy{
 			stopped = STOP_TIME;
 			velocityX= 0f;
 			velocityY = 0f;
-			bitmap = game.getBitmap(IMAGE_ID2);
+			//bitmap = game.getBitmap(IMAGE_ID2);
 			
 			
 			recharge = RECHARGE_TIME;
@@ -119,7 +120,7 @@ public class AOEEnemy extends Enemy{
 
 	@Override
 	void createLoot() {
-		
+		game.addEntity(new GoldDrop(game,xPos,yPos));
 	}
 	
 

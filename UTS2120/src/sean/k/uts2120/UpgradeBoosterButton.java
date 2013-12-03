@@ -1,8 +1,5 @@
 package sean.k.uts2120;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-
 public class UpgradeBoosterButton extends UpgradeButton{
 	
 	final static int LEVEL_TWO_PRICE = 250;
@@ -10,7 +7,7 @@ public class UpgradeBoosterButton extends UpgradeButton{
 	Booster booster;
 
 	public UpgradeBoosterButton(UpgradeMenu menu, Game game) {
-		super(menu, game);
+		super(menu, game,R.drawable.boostericon);
 		booster = game.getPlayer().getBooster();
 	}
 

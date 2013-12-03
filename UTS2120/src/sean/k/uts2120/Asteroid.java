@@ -20,10 +20,7 @@ abstract class Asteroid extends Enemy{
 		
 	}
 	
-	
-	public void createLoot(){
-		
-	}
+
 	
 	abstract Asteroid copy();
 	

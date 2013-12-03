@@ -8,7 +8,7 @@ public class UpgradeLaserPowerButton extends UpgradeButton{
 	Laser laser;
 	
 	public UpgradeLaserPowerButton(UpgradeMenu menu, Game game) {
-		super(menu, game);
+		super(menu, game,R.drawable.powericon);
 		laser = game.getPlayer().getLaser();
 	}
 

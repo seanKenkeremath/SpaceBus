@@ -155,7 +155,8 @@ abstract class Level {
 		tempEntities.add(addEntity);
 		allEntities.add(addEntity);
 	}
-
+	
+	
 	/*
 	 * this is called in the update() method.
 	 * It looks at the next entity in the spawn queue

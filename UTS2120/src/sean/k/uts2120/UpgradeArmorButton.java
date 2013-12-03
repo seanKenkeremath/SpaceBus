@@ -1,8 +1,5 @@
 package sean.k.uts2120;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-
 public class UpgradeArmorButton extends UpgradeButton{
 	
 	final static int LEVEL_TWO_PRICE = 300;
@@ -10,7 +7,7 @@ public class UpgradeArmorButton extends UpgradeButton{
 	Armor armor;
 
 	public UpgradeArmorButton(UpgradeMenu menu, Game game) {
-		super(menu, game);
+		super(menu, game, R.drawable.armoricon);
 		armor = game.getPlayer().getArmor();
 	}
 

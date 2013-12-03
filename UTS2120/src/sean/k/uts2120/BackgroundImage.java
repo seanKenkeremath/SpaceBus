@@ -14,7 +14,7 @@ public class BackgroundImage extends GameEntity{
 	float endingScale; //float representing percent the image will shrink or expand
 	float startingScale; //float representing beginning scale of image based on width/height
 	float growthFactor;
-	float distance; //total distance that the image will persist
+	float distance; //total distance that the image will be changed over
 	
 	/*	Images that do not interact with other game entities and are drawn in the background.  
 	 * 	BaseHeight and baseWidth are used for bitmap resolution.

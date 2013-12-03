@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="SpaceTheme" parent="android:style/Theme.NoTitleBar">
+    <style name="SpaceTheme" parent="android:style/Theme.NoTitleBar.Fullscreen">
         <item name="android:buttonStyle">@style/default_button</item>
     </style>
 

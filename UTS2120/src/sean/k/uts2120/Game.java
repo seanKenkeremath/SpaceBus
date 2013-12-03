@@ -479,7 +479,7 @@ public class Game{
 		canvas.drawText("Passengers: "+player.getPassengerCount(),(float)(Game.screenWidth*.66f), (float)(Game.totalHeight-Game.bottomMarginHeight*.25f),passengerPaint);
 
 	}
-	
+		
 	private void drawBottomMargin(Canvas canvas){
 		canvas.drawRect(0f,Game.totalHeight-Game.bottomMarginHeight,Game.screenWidth,Game.totalHeight, marginPaint);
 	}

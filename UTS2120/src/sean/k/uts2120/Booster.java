@@ -62,6 +62,7 @@ public class Booster {
 	private float jetHeight;
 	
 	boolean active;
+	boolean recharged;
 	
 	int boosterLevel;
 	float boosterSpeed;
@@ -138,6 +139,7 @@ public class Booster {
 		}
 		game.setSpeed(boosterSpeed);
 		active = true;
+		recharged = false;
 		boostTime = (int) (boostTotalRechargeTime*boostTimeFraction);
 		boostRechargeTime = boostTotalRechargeTime;
 	}
@@ -146,8 +148,10 @@ public class Booster {
 	public void reset(){
 		boostTime = 0;
 		boostRechargeTime = 0;
+		recharged = true;
 		game.setSpeed(Game.gameSpeedNormal);
 		active = false;
+		
 	}
 	
 	public void upgrade(){
@@ -180,6 +184,9 @@ public class Booster {
 
 		if (boostRechargeTime>0){
 			boostRechargeTime--;
+			if (boostRechargeTime==0){
+				recharged = true;
+			}
 		}
 	}
 	

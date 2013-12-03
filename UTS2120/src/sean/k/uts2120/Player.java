@@ -37,10 +37,6 @@ public class Player extends GameEntity{
 
 	
 	public boolean dead;  //whether the player has been killed. checked every loop of thread.
-	public boolean doorsOpen;
-	private int doorsOpenTime;
-	public boolean nearPassengers;
-	private int nearPassengersTime;
 	
 	private int passengerCount;
 	
@@ -95,10 +91,6 @@ public class Player extends GameEntity{
 		}
 		paint = new Paint();
 		dead = false;
-		nearPassengers = false;
-		nearPassengersTime = 0;
-		doorsOpen = false;
-		doorsOpenTime = 0;
 		passengerCount = 0;
 		velocityY = 0f;
 		booster.reset();
@@ -212,45 +204,9 @@ public class Player extends GameEntity{
 		
 		laser.update();
 		
-		if (doorsOpenTime>0){
-			doorsOpenTime--;
-		}
-		if (doorsOpenTime==0){
-			doorsOpen = false;
-		}
-		
-		if (nearPassengersTime>0){
-			nearPassengersTime--;
-		}
-		if (nearPassengersTime==0){
-			nearPassengers = false;
-		}
-		
 
 	}
 	
-	/*
-	 * when this is called the OpenDoors button appears.
-	 */
-	public void seeBusStop(){
-		/*
-		if (nearPassengersTime>0){
-			return;
-		}
-		*/
-		nearPassengers=true;
-		nearPassengersTime = NEAR_PASSENGERS_DURATION;
-	}
-
-	public void openDoors(){
-		/*
-		if (doorsOpenTime>0){
-			return;
-		}
-		*/
-		doorsOpen = true;
-		doorsOpenTime = DOORS_OPEN_DURATION;
-	}
 
 	public Laser getLaser(){
 		return laser;

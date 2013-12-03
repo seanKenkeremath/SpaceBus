@@ -8,7 +8,7 @@ public class GameplayScreen extends GameScreen{
 	public GameplayScreen(GameThread theThread) {
 		super(theThread, GameScreen.NO_BACKGROUND_IMAGE, 0);
 		buttons.add(new PauseButton(thread));
-		buttons.add(new OpenDoorsButton(thread));
+		buttons.add(new BoosterButton(thread));
 	}
 
 	

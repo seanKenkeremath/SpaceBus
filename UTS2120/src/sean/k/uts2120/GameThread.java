@@ -407,10 +407,6 @@ public class GameThread extends Thread implements SensorEventListener {
 
 		game.getPlayer().incVelocityX(accelerationX);
 
-		if (tiltDeltaY > TILTY_NOISE) {
-			game.getPlayer().getBooster().boost();
-		}
-
 		// RT = Shots*asteroids +Shots*enemies + enemyShot + asteroid + pickups
 		// + enemies
 

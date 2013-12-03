@@ -7,17 +7,17 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Paint.Style;
 
-public class OpenDoorsButton extends GameButton {
+public class BoosterButton extends GameButton {
 
 	final static float HEIGHT_PERCENT_MARGIN = 1f;
 	final static float WIDTH_PERCENT_WIDTH = .2f;
-	final static String TEXT = "Doors";
+	final static String TEXT = "Boost";
 
 	/*
 	 * the button that picks up nearby passengers. It is only visible when
 	 * Player is near a bus stop.
 	 */
-	public OpenDoorsButton(GameThread theThread) {
+	public BoosterButton(GameThread theThread) {
 		super(theThread, WIDTH_PERCENT_WIDTH * Game.screenWidth,
 				HEIGHT_PERCENT_MARGIN * Game.bottomMarginHeight,
 				Game.screenWidth - (Game.screenWidth * WIDTH_PERCENT_WIDTH) / 2,
@@ -36,24 +36,18 @@ public class OpenDoorsButton extends GameButton {
 
 	@Override
 	public void draw(Canvas canvas) {
-		if (thread.getGame().getPlayer() != null) {
-			if (thread.getGame().getPlayer().nearPassengers) {
+		if (thread.getGame().getPlayer() != null && thread.getGame().getPlayer().getBooster().recharged) {
 				super.draw(canvas);
 				paint.setColor(Color.WHITE);
 				canvas.drawText(TEXT, drawnShape.centerX(),
 						drawnShape.centerY(), paint);
-				// canvas.drawText(thread.getGame().getCurrentWeapon().getName(),drawnShape.centerX(),
-				// drawnShape.centerY(),paint);
-			}
 		}
 
 	}
 
 	@Override
 	void click() {
-		if (thread.getGame().getPlayer().nearPassengers) {
-			thread.getGame().getPlayer().openDoors();
-		}
+		thread.getGame().getPlayer().getBooster().boost();
 
 	}
 

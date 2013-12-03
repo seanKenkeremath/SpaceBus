@@ -1,6 +1,6 @@
 package sean.k.uts2120;
 
-public class Passenger extends GameEntity{
+public class Passenger extends PickUp{
 
 	final static int IMAGE_ID=R.drawable.seanjetpack_megoggle;
 	final static float HEIGHT_PERCENT = .1f;
@@ -8,7 +8,7 @@ public class Passenger extends GameEntity{
 	final static int POINTS = 20;
 	
 	/*
-	 * neutral GameEntity that is spawned by a bus stop.
+	 * PickUp that is spawned by a bus stop.
 	 * Contains a board() method that rewards Player for picking him up.
 	 */
 	public Passenger(Game theGame, float xPosition,	float yPosition) {
@@ -23,6 +23,13 @@ public class Passenger extends GameEntity{
 		//game.incScore(POINTS);
 		game.incGold(fare.getAmount());
 		game.incPassengerCount(1);
-		setRemove(true);
 	}
+
+
+	@Override
+	void pickUp() {
+		board();
+		remove = true;
+	}
+
 }

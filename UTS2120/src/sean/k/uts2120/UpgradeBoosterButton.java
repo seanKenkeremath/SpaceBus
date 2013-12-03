@@ -30,8 +30,8 @@ public class UpgradeBoosterButton extends UpgradeButton{
 
 	@Override
 	String getMessage() {
-		return "Upgrade Booster";
-	}
+		return "Booster Level " + (int)(booster.getLevel()+1);	
+		}
 
 	@Override
 	boolean available() {

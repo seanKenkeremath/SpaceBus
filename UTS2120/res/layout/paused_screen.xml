@@ -18,13 +18,13 @@
     <Button
         android:id="@+id/paused_screen_resume"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="Resume" />
 
     <Button
         android:id="@+id/paused_screen_quit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="Quit" />
 
 </LinearLayout>

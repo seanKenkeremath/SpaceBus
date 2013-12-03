@@ -42,7 +42,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight=".3"
             android:gravity="center|bottom"
-            android:text="High Score (Driver Performance): "
+            android:text="High Score: "
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView

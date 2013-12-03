@@ -42,13 +42,13 @@ public class UpgradeScoreMultiplierButton extends UpgradeButton{
 	@Override
 	String getMessage() {
 		if (game.getScoreMultiplier()==LEVEL_ONE){
-			return "Upgrade Score Multiplier to X" + LEVEL_TWO;
+			return "X" + LEVEL_TWO + " Score Multiplier";
 		} else if (game.getScoreMultiplier()==LEVEL_TWO){
-			return "Upgrade Score Multiplier to X" + LEVEL_THREE;
+			return "X" + LEVEL_THREE + " Score Multiplier";
 		} else if (game.getScoreMultiplier()==LEVEL_THREE){
-			return "Upgrade Score Multiplier to X" + LEVEL_FOUR;
+			return "X" + LEVEL_FOUR + " Score Multiplier";
 		} else {
-			return "";
+			return "Upgrade Score Multiplier";
 		}
 		
 	}

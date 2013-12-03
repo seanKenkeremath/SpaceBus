@@ -33,7 +33,7 @@ public class UpgradeLaserPowerButton extends UpgradeButton{
 
 	@Override
 	String getMessage() {
-		return "Upgrade Cannon Power" +" (level "+(int)(laser.getPowerLevel()+1)+")";
+		return "Cannon Power Level " +(int)(laser.getPowerLevel()+1);
 	}
 
 	@Override

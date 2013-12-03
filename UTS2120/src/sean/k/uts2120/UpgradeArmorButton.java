@@ -30,7 +30,8 @@ public class UpgradeArmorButton extends UpgradeButton{
 
 	@Override
 	String getMessage() {
-		return "Upgrade Armor";
+
+		return "Armor Level " + (int)(armor.getLevel()+1);
 	}
 
 	@Override

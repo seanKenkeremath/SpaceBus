@@ -30,7 +30,7 @@ public class UpgradeLaserSpeedButton extends UpgradeButton{
 
 	@Override
 	String getMessage() {
-		return "Upgrade Cannon Speed" +" (level "+(int)(laser.getSpeedLevel()+1)+")";
+		return "Cannon Speed Level " +(int)(laser.getSpeedLevel()+1);
 	}
 
 	@Override

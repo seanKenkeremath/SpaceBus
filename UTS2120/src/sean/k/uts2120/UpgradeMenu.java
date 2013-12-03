@@ -54,8 +54,8 @@ public class UpgradeMenu extends GameMenu {
 
 		});
 
-		buyButton.setVisibility(View.INVISIBLE); // initially nothing is
-													// selected
+		//buyButton.setVisibility(View.INVISIBLE); // initially nothing is
+		buyButton.setEnabled(false);											// selected
 
 		Game game = activity.getGame();
 		buttons.add(new UpgradeLaserSpeedButton(this, game));
@@ -111,11 +111,14 @@ public class UpgradeMenu extends GameMenu {
 
 		if (activity.getGame().getGold() < selected.getPrice()) {
 			upgradeCost.setTextColor(Color.RED);
-			buyButton.setVisibility(View.INVISIBLE);
+			//buyButton.setVisibility(View.INVISIBLE);
+			buyButton.setEnabled(false);
 
 		} else {
 			upgradeCost.setTextColor(Color.GREEN);
-			buyButton.setVisibility(View.VISIBLE);
+			//buyButton.setVisibility(View.VISIBLE);
+			buyButton.setEnabled(true);
+
 
 		}
 
@@ -125,7 +128,8 @@ public class UpgradeMenu extends GameMenu {
 
 	private void initializeBuyInfo() {
 		yourMoney.setText("You have: $" + activity.getGame().getGold());
-		buyButton.setVisibility(View.INVISIBLE);
+		//buyButton.setVisibility(View.INVISIBLE);
+		buyButton.setEnabled(false);
 		upgradeCost.setText("");
 		upgradeMessage.setText("");
 

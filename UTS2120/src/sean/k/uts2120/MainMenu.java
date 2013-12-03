@@ -23,6 +23,9 @@ public class MainMenu extends Activity {
 		final View mainPanel = findViewById(R.id.main_menu_panel);
 		mainPanel.setVisibility(View.INVISIBLE);
 		
+		Button optionsButton = (Button) findViewById(R.id.main_menu_optionsButton);
+		optionsButton.setEnabled(false);
+		
 
 		Button newGameButton = (Button) findViewById(R.id.main_menu_startButton);
 		newGameButton.setOnClickListener(new OnClickListener(){
@@ -38,7 +41,7 @@ public class MainMenu extends Activity {
 		
 		TextView highScore = (TextView) findViewById(R.id.main_menu_high_score);
 		SharedPreferences data = getSharedPreferences(PREFERENCES_LABEL,MODE_PRIVATE);
-		highScore.setText(""+data.getInt(GameActivity.HIGH_SCORE_KEY, 0));
+		highScore.setText(""+data.getInt(GameActivity.HIGH_SCORE_KEY, 0) + " DPM");
 		
 		mainPanel.postDelayed(new Runnable(){
 
